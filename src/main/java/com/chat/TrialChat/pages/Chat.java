@@ -1,15 +1,15 @@
-package com.chat.TrialChat;
+package com.chat.TrialChat.pages;
 
 import java.io.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
 @WebServlet(name = "helloServlet", value = "/hello-world")
-public class HelloWorld extends HttpServlet {
+public class Chat extends HttpServlet {
     private String message;
 
     public void init() {
-        message = "Hello World!";
+        message = "Hello Csigi!";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
