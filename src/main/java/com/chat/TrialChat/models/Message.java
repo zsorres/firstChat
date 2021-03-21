@@ -26,7 +26,7 @@ public class Message {
     private Date sendTime;
 
     @Column
-    @ManyToOne
+    @OneToOne
     private User user;
 
 }
