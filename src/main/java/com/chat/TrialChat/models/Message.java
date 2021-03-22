@@ -17,7 +17,7 @@ public class Message {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private int message_id;
 
     @Column
     private String message;
@@ -27,6 +27,10 @@ public class Message {
 
     @Column
     @OneToOne
-    private User user;
+    private User user_To;
+
+    @Column
+    @OneToOne
+    private User user_From;
 
 }

@@ -1,10 +1,17 @@
-CREATE DATABASE 'ChatStore';
+CREATE DATABASE ChatStore;
 USE ChatStore;
 
-CREATE TABLE 'user' (
+CREATE TABLE user (
+user_id int(11) NOT NULL AUTO_INCREMENT,
+username varchar(45) NOT NULL,
+PRIMARY KEY (user_id)
+);
 
-)
-
-CREATE TABLE 'message' (
-
-)
+CREATE TABLE message (
+message_id int(11) NOT NULL AUTO_INCREMENT,
+message varchar(128) NOT NULL,
+sendTime DATE NOT NULL ,
+user_To int(11) NOT NULL,
+user_From int(11) NOT NULL,
+PRIMARY KEY (message_id)
+);

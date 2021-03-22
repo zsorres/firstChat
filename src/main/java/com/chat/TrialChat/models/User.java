@@ -19,9 +19,13 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private int user_id;
 
     @Column
     private String username;
+
+    public User(String username) {
+        this.username = username;
+    }
 
 }
