@@ -11,7 +11,6 @@ CREATE TABLE message (
 message_id int(11) NOT NULL AUTO_INCREMENT,
 message varchar(128) NOT NULL,
 sendTime DATE NOT NULL ,
-user_To int(11) NOT NULL,
-user_From int(11) NOT NULL,
+user int(11) NOT NULL,
 PRIMARY KEY (message_id)
 );

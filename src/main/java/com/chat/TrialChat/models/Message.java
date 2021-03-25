@@ -13,10 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "message")
 public class Message {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int message_id;
 
     @Column
@@ -25,12 +26,19 @@ public class Message {
     @Column
     private Date sendTime;
 
-    @Column
-    @OneToOne
-    private User user_To;
+    @JoinColumn
+    @ManyToOne
+    private User user;
 
-    @Column
-    @OneToOne
-    private User user_From;
+    @PrePersist
+    public void prePersist() {
+        this.sendTime = new Date();
+    }
+
+//    public Message(User user, String text) {
+//        this.user = user;
+//        this.message = text;
+//        this.sendTime = new Date();
+//    }
 
 }
