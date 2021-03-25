@@ -10,7 +10,7 @@ import java.util.List;
 public class UserService {
 
     @PersistenceContext
-    protected EntityManager entityManager;
+    EntityManager entityManager;
 
     public UserService(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -39,13 +39,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUserName(int id,String newUserName) {
-        User user = entityManager.find(User.class, id);
-        user.setUsername(newUserName);
+    public void update(User user) {
         entityManager.merge(user);
-    }
-
-    public void commit() {
-        entityManager.getTransaction().commit();
     }
 }

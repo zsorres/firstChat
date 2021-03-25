@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Setter
@@ -14,11 +15,15 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "message")
-public class Message {
+public class Message implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int message_id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
+
+    @JoinColumn
+    @OneToOne
+    private Conversation conversation;
 
     @Column
     private String message;
@@ -35,10 +40,5 @@ public class Message {
         this.sendTime = new Date();
     }
 
-//    public Message(User user, String text) {
-//        this.user = user;
-//        this.message = text;
-//        this.sendTime = new Date();
-//    }
 
 }
