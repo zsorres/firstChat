@@ -34,7 +34,7 @@ public class ChatController {
 
 
     protected User user;
-    protected Conversation conv = entityManager.find(Conversation.class,1);
+    protected Conversation conv = entityManager.find(Conversation.class,1);;
     protected Message message;
     protected String messageText;
     protected List<Conversation> conversationList = conversationService.getConversation();
@@ -121,7 +121,7 @@ public class ChatController {
         entityManager.getTransaction().commit();
     }
 
-    public List<Message> lastTwentyMessages() {
+    public List<Message> lastTwentyMessages() throws IOException {
         messageList.addAll(messageService.getLastTwentyMessages());
         return messageList;
     }

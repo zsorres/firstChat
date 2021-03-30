@@ -6,7 +6,10 @@ import com.chat.TrialChat.models.User;
 
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -57,16 +60,30 @@ public class MessageService {
                 .getResultList();
     }
 
-    public List<Message> getLastTwentyMessages() {
-        return entityManager.createQuery("select c from Message c where c.conversation like :id order by c.sendTime asc")
+    public List<Message> getLastTwentyMessages(){
+        List<Message> messageList = new ArrayList<>();
+        try {
+            messageList = entityManager.createQuery("select c from Message c where c.conversation like :id order by c.sendTime asc")
                 .setParameter("id", usedConversation())
-                .setFirstResult(getMessagesById(usedConversation()).size()-20)
+                .setFirstResult(getFirstResult())
                 .setMaxResults(getMessagesById(usedConversation()).size())
                 .getResultList();
+        }catch (NoResultException nre){
+
+        }
+        return messageList;
     }
 
     public Message update(Message currentMessageEntity) {
         return entityManager.merge(currentMessageEntity);
     }
 
+    public Integer getFirstResult() {
+        Integer result = 0;
+        if (getMessagesById(usedConversation()).size() < 20) {
+            return result;
+        }
+        result = getMessagesById(usedConversation()).size() - 20;
+        return result;
+    }
 }
