@@ -14,6 +14,7 @@ public class MessageService {
 
     @PersistenceContext
     EntityManager entityManager;
+    Conversation usedConversation;
 
     public MessageService(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -41,19 +42,28 @@ public class MessageService {
         entityManager.persist(message);
         return message;
     }
-//
-//    public List<Message> getByConv(Conversation conversation) {
-//        Conversation conv= entityManager.find(Conversation.class, conversation.getId());
-//        for (Message )
-//        return messages;
-//    }
 
-    public List<Message> getMessages(Conversation conversation) {
+    public Conversation usedConversation() {
+         return this.usedConversation = entityManager.find(Conversation.class,1);
+    }
+
+    public List<Message> getMessages() {
+        return entityManager.createQuery("select c from Message c").getResultList();
+    }
+
+    public List<Message> getMessagesById(Conversation conversation) {
         return entityManager.createQuery("select c from Message c where c.conversation like :id")
                 .setParameter("id", conversation)
                 .getResultList();
     }
 
+    public List<Message> getLastTwentyMessages() {
+        return entityManager.createQuery("select c from Message c where c.conversation like :id order by c.sendTime asc")
+                .setParameter("id", usedConversation())
+                .setFirstResult(getMessagesById(usedConversation()).size()-20)
+                .setMaxResults(getMessagesById(usedConversation()).size())
+                .getResultList();
+    }
 
     public Message update(Message currentMessageEntity) {
         return entityManager.merge(currentMessageEntity);

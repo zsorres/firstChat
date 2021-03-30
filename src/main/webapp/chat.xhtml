@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Chat</title>
+</h:head>
+<h:body>
+	<h:form id="chatForm">
+		<p:growl id="user" showDetail="true"/>
+		<p:outputLabel value="Login success! Welcome to the system!"></p:outputLabel>
+			<br></br>
+			<br></br>
+		<h:outputText value="Enter Message:"/>
+			<br></br>
+		<p:inputTextarea id="message" rendered="true" placeholder="Enter your message" accesskey="message"  rows="3" cols="35"/>
+			<br></br>
+		<p:commandButton icon="pi pi-check" styleClass="rounded-button" type="submit" process="message" ajax="true">
+			<p:ajax event="click" listener="#{chatBean.addNewMessage}"/>
+		</p:commandButton>
+		<br></br>
+		<br></br>
+			<table id="conv" class="fa-history">
+				<tr>
+					<th class="order-table-header">Message</th>
+					<th class="order-table-header">User From</th>
+					<th class="order-table-header">Date</th>
+				</tr>
+				<tbody>
+				<ui:repeat var="o" value="#{chatBean.lastTwentyMessages()}" varStatus="status">
+					<h:panelGroup>
+						<tr>
+							<td class="order-table-even-row">#{o.message}</td>
+							<td class="order-table-even-row">#{o.user.username}</td>
+							<td class="order-table-even-row">#{o.sendTime}</td>
+						</tr>
+					</h:panelGroup>
+				</ui:repeat>
+				</tbody>
+			</table>
+		<p:poll interval="10" listener="#{chatBean.increment}" update="chatForm"/>
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Login</title>
+</h:head>
+<h:body>
+    <h2>Welcome in my Chat.</h2>
+    <h5><p:outputLabel value="Please login."></p:outputLabel></h5>
+    <h:form id="loginForm">
+        <h:outputText value="Enter your username:"/>
+        <p:inputText id="username" rendered="true" placeholder="Enter your Username" accesskey="username"/>
+        <p:commandButton icon="pi pi-check" styleClass="rounded-button" type="submit" process="username" ajax="false" action="#{chatBean.redirectChat}">
+            <p:ajax event="click" listener="#{chatBean.createUser}"/>
+        </p:commandButton>
+    </h:form>
+</h:body>
+</html>

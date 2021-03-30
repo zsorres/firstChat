@@ -2,8 +2,6 @@ package com.chat.TrialChat.services;
 
 import com.chat.TrialChat.models.Conversation;
 import com.chat.TrialChat.models.Message;
-import com.chat.TrialChat.models.User;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,6 +35,10 @@ public class ConversationService {
         if (conversation != null) {
             return conversation;
         }else throw new Error("This Conversation is not exist");
+    }
+
+    public List<Conversation> getConversation() {
+        return entityManager.createQuery("select c from Conversation c").getResultList();
     }
 
     public void addMessage(Message message, int id) {
